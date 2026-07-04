@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Login</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#000;color:#fff;overflow:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle,#222 1px,transparent 1px);background-size:30px 30px;animation:bg 12s linear infinite}
+body:after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(255,255,255,.05),transparent);animation:scan 4s linear infinite;pointer-events:none}
+@keyframes bg{to{background-position:300px 300px}}@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
+.screen{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;flex-direction:column;background:#000}
+h1{color:#d00;font-size:42px;animation:gl .25s infinite alternate}
+@keyframes gl{0%{transform:translate(0)}50%{transform:translate(2px,-2px)}100%{transform:translate(-2px,2px)}}
+.loader{width:60px;height:60px;border:5px solid #333;border-top-color:red;border-radius:50%;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+#login{display:none;background:url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80") center/cover}
+.box{background:rgba(0,0,0,.82);padding:25px;border-radius:14px;animation:up .8s}@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1}}
+input,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none}button{background:#d00;color:#fff;cursor:pointer;box-shadow:0 0 18px red}button:hover{transform:scale(1.03)}
+</style></head><body>
+<div id=intro class=screen><h1>CALL OF DUTY</h1></div>
+<div id=loading class=screen style="display:none"><div class=loader></div><p id=t></p></div>
+<div id=login class=screen><div class=box><h2>LOGIN PLAYER</h2><input id=n placeholder="Player Name"><input id=g placeholder="Game Name"><button onclick=s()>ENTER</button><p id=r></p></div></div>
+<script>
+setTimeout(()=>{intro.style.display='none';loading.style.display='flex';let txt="Loading Game Assets...";let i=0;let a=setInterval(()=>{t.textContent+=txt[i++]||"";if(i>txt.length)clearInterval(a)},70);setTimeout(()=>{loading.style.display='none';login.style.display='flex'},3200)},2500);
+function s(){let name=n.value.trim(),game=g.value.trim();if(!name||!game){r.innerHTML="Fill all fields";return;}let uid="";for(let i=0;i<19;i++)uid+=Math.floor(Math.random()*10);r.innerHTML=`Welcome <b>${name}</b><br>Game: ${game}<br>UID: ${uid}`;}
+</script></body></html>
